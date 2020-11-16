@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import { useGraph } from 'hooks';
 
 interface Props {
-  children: number;
+  alternative?: boolean;
+  children: string;
   x: number;
   y: number;
 }
@@ -10,7 +11,7 @@ interface Props {
 /**
  * Label
  */
-const Label = ({ children, x, y }: Props) => {
+const Label = ({ alternative, children, x, y }: Props) => {
   const context = useGraph();
 
   if (!context) {
@@ -23,8 +24,9 @@ const Label = ({ children, x, y }: Props) => {
     <text
       alignmentBaseline="hanging"
       opacity={0.9}
+      textAnchor={alternative ? 'end' : undefined}
       transform={`scale(${1 / scale.x},${1 / scale.y})`}
-      x={(x + 0.05) * scale.x}
+      x={(x + (alternative ? -0.1 : 0.05)) * scale.x}
       y={(y + 0.1) * scale.y}
     >
       {children}
@@ -33,7 +35,8 @@ const Label = ({ children, x, y }: Props) => {
 };
 
 Label.propTypes = {
-  children: PropTypes.number.isRequired,
+  alternative: PropTypes.bool,
+  children: PropTypes.string.isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
 };
