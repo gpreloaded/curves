@@ -101,7 +101,7 @@ const Grid = () => {
         <Fragment key={`y${i}`}>
           <Axis x1={x.min} x2={x.max} y1={i} y2={i} />
           <Label alternative x={0} y={i}>
-            {format(i, { precision: 5 })}
+            {format(-i, { precision: 5 })}
           </Label>
         </Fragment>
       );

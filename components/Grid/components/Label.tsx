@@ -25,9 +25,11 @@ const Label = ({ alternative, children, x, y }: Props) => {
       alignmentBaseline="hanging"
       opacity={0.9}
       textAnchor={alternative ? 'end' : undefined}
-      transform={`scale(${1 / scale.x},${1 / scale.y})`}
-      x={(x + (alternative ? -0.1 : 0.05)) * scale.x}
-      y={(y + 0.1) * scale.y}
+      transform={`scale(${1 / scale.x},${1 / scale.y}) translate(${
+        alternative ? -5 : 5
+      },5)`}
+      x={x * scale.x}
+      y={y * scale.y}
     >
       {children}
     </text>
