@@ -49,7 +49,7 @@ const Graph = ({ children, height, width }: Props) => {
         width={width}
       >
         <g
-          transform={`scale(${scale.x},${scale.y}) translate(${translate.x}, ${translate.y}) `}
+          transform={`scale(${scale.x},${scale.y}) translate(${translate.x},${translate.y})`}
         >
           {children}
         </g>
