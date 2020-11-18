@@ -4,6 +4,7 @@ import { useGraph } from 'hooks';
 import { useMemo } from 'react';
 
 interface Props {
+  color?: string;
   eq: string;
 }
 
@@ -13,14 +14,14 @@ const POINTS_ARR = new Array(NB_POINTS).fill(0).map((e, i) => i);
 /**
  * Curve
  */
-const Curve = ({ eq }: Props) => {
+const Curve = ({ color, eq }: Props) => {
   const context = useGraph();
 
   if (!context) {
     return null;
   }
 
-  const { x, y } = context;
+  const { x } = context;
 
   const d = useMemo(() => {
     const step = (x.max - x.min) / NB_POINTS;
@@ -34,14 +35,19 @@ const Curve = ({ eq }: Props) => {
     <path
       d={d}
       fill="none"
-      stroke="black"
+      stroke={color}
       strokeWidth={2}
       vectorEffect="non-scaling-stroke"
     />
   );
 };
 
+Curve.defaultProps = {
+  color: '#000000',
+};
+
 Curve.propTypes = {
+  color: PropTypes.string,
   eq: PropTypes.string.isRequired,
 };
 

@@ -1,6 +1,6 @@
-export type Vector2D = {
-  x: number;
-  y: number;
+export type Curve = {
+  color?: string;
+  eq: string;
 };
 
 export type GraphContext = {
@@ -12,4 +12,9 @@ export type GraphContext = {
 export type Range = {
   max: number;
   min: number;
+};
+
+export type Vector2D = {
+  x: number;
+  y: number;
 };
