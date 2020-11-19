@@ -1,12 +1,14 @@
-import { createContext, useMemo, useState } from 'react';
-import { GraphContext } from 'types';
+import { createContext, Dispatch, SetStateAction, useMemo } from 'react';
+import { GraphContext, Grid } from 'types';
 import PropTypes from 'prop-types';
 import usePan from '../hooks/usePan';
 import useZoom from '../hooks/useZoom';
 
 interface Props {
   children?: React.ReactNode;
+  grid: Grid;
   height: number;
+  onGridChange: Dispatch<SetStateAction<Grid>>;
   width: number;
 }
 
@@ -20,27 +22,26 @@ const defaultRange = {
 /**
  * Graph
  */
-const Graph = ({ children, height, width }: Props) => {
-  const [range, setRange] = useState({ x: defaultRange, y: defaultRange });
-  const utilsPan = usePan(setRange, width, height);
-  const utilsZoom = useZoom(setRange);
+const Graph = ({ children, grid, height, onGridChange, width }: Props) => {
+  const utilsPan = usePan(onGridChange, width, height);
+  const utilsZoom = useZoom(onGridChange);
 
   const scale = useMemo(() => {
     return {
-      x: width / (range.x.max - range.x.min),
-      y: height / (range.y.max - range.y.min),
+      x: width / (grid.x.max - grid.x.min),
+      y: height / (grid.y.max - grid.y.min),
     };
-  }, [height, range.x.max, range.x.min, range.y.max, range.y.min, width]);
+  }, [height, grid.x.max, grid.x.min, grid.y.max, grid.y.min, width]);
 
   const translate = useMemo(() => {
     return {
-      x: -range.x.min,
-      y: -range.y.min,
+      x: -grid.x.min,
+      y: -grid.y.min,
     };
-  }, [height, range.x.min, range.y.min, width]);
+  }, [height, grid.x.min, grid.y.min, width]);
 
   return (
-    <Context.Provider value={{ scale, x: range.x, y: range.y }}>
+    <Context.Provider value={{ scale, x: grid.x, y: grid.y }}>
       <svg
         {...utilsPan}
         {...utilsZoom}
@@ -60,7 +61,18 @@ const Graph = ({ children, height, width }: Props) => {
 
 Graph.propTypes = {
   children: PropTypes.node,
+  grid: PropTypes.shape({
+    x: PropTypes.shape({
+      max: PropTypes.number.isRequired,
+      min: PropTypes.number.isRequired,
+    }).isRequired,
+    y: PropTypes.shape({
+      max: PropTypes.number.isRequired,
+      min: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
   height: PropTypes.number.isRequired,
+  onGridChange: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
 };
 

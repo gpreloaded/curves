@@ -1,9 +1,7 @@
 import { Dispatch, SetStateAction, WheelEvent } from 'react';
-import { Range } from 'types';
+import { Grid } from 'types';
 
-export default function useZoom(
-  setRange: Dispatch<SetStateAction<{ x: Range; y: Range }>>
-) {
+export default function useZoom(setRange: Dispatch<SetStateAction<Grid>>) {
   const onWheel = (event: WheelEvent<SVGSVGElement>) => {
     const sign = event.deltaY > 0 ? -1 : 1;
 

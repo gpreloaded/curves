@@ -31,15 +31,15 @@ function calcStep(range: Range) {
   const maxSplit = delta / 10;
   const [first, rank] = getFirstAndRank(maxSplit);
 
-  if (rank < 0) {
-    if (first > 5) {
-      return 5 * Math.pow(10, rank);
-    } else if (first > 2) {
-      return 2 * Math.pow(10, rank);
-    } else {
-      return Math.pow(10, rank);
-    }
-  }
+  // if (rank < 0) {
+  //   if (first > 5) {
+  //     return 5 * Math.pow(10, rank);
+  //   } else if (first > 2) {
+  //     return 2 * Math.pow(10, rank);
+  //   } else {
+  //     return Math.pow(10, rank);
+  //   }
+  // }
 
   if (first === 1) {
     // x = 1

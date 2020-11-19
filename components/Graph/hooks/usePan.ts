@@ -1,8 +1,8 @@
 import { Dispatch, MouseEvent, SetStateAction, useState } from 'react';
-import { Range } from 'types';
+import { Grid } from 'types';
 
 export default function usePan(
-  setRange: Dispatch<SetStateAction<{ x: Range; y: Range }>>,
+  setRange: Dispatch<SetStateAction<Grid>>,
   width: number,
   height: number
 ) {

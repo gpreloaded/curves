@@ -3,8 +3,11 @@ export type Curve = {
   eq: string;
 };
 
-export type GraphContext = {
+export type GraphContext = Grid & {
   scale: Vector2D;
+};
+
+export type Grid = {
   x: Range;
   y: Range;
 };
